@@ -39,7 +39,6 @@ public class LoginJFrame extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(631, 615));
 
         jPanel1.setBackground(new java.awt.Color(255, 217, 217));
         jPanel1.setForeground(java.awt.Color.black);

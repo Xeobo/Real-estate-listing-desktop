@@ -6,7 +6,9 @@
 package com.vzbiljic.pki;
 
 import com.vzbiljic.pki.plane.AddPropertyJPanel;
+import com.vzbiljic.pki.plane.AddToAgentJPlane;
 import com.vzbiljic.pki.plane.ListJPanel;
+import com.vzbiljic.pki.plane.ViewedByUserJPanel;
 import com.vzbiljic.pki.plane.listadapter.AgentListAdapter;
 import com.vzbiljic.pki.plane.listadapter.IListAdapter;
 import com.vzbiljic.pki.plane.listadapter.PropertyListAdapter;
@@ -226,6 +228,11 @@ public class MainJFrame extends javax.swing.JFrame {
         shownByAgent.setBackground(new java.awt.Color(204, 0, 0));
         shownByAgent.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         shownByAgent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        shownByAgent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                shownByAgentMouseClicked(evt);
+            }
+        });
 
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Pokazane po agentu");
@@ -250,6 +257,11 @@ public class MainJFrame extends javax.swing.JFrame {
         seenByClient.setBackground(new java.awt.Color(204, 0, 0));
         seenByClient.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         seenByClient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        seenByClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seenByClientMouseClicked(evt);
+            }
+        });
 
         jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Obidjene po klijentu");
@@ -388,7 +400,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ListAgentsMouseClicked
 
     private void assignPropertyToAgentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_assignPropertyToAgentMouseClicked
-        
+        setMainPanel(new AddToAgentJPlane());
     }//GEN-LAST:event_assignPropertyToAgentMouseClicked
 
     private void soledPropertyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_soledPropertyKeyPressed
@@ -398,6 +410,14 @@ public class MainJFrame extends javax.swing.JFrame {
     private void soledPropertyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_soledPropertyMouseClicked
         setListViewContentWithAdapter(new PropertyListAdapter());
     }//GEN-LAST:event_soledPropertyMouseClicked
+
+    private void seenByClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seenByClientMouseClicked
+        setMainPanel(new ViewedByUserJPanel("Pera", "0621234567"));
+    }//GEN-LAST:event_seenByClientMouseClicked
+
+    private void shownByAgentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shownByAgentMouseClicked
+        setMainPanel(new ViewedByUserJPanel("Pera", "0621234567","BGStan"));
+    }//GEN-LAST:event_shownByAgentMouseClicked
 
     /**
      * @param args the command line arguments
@@ -452,14 +472,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel logOut;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JScrollPane mainPlain;
