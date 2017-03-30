@@ -14,9 +14,10 @@ import java.awt.image.BufferedImage;
  *
  * @author vzbiljic
  */
-public class Utils {
+public class Util {
     
-    public static Image ScaleImage(Image image, int w, int h){
+    
+    public static Image scaleImage(Image image, int w, int h){
         BufferedImage resizeImage = new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);
         Graphics2D g = resizeImage.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -24,5 +25,4 @@ public class Utils {
         g.dispose();
         return resizeImage;
     }
-    
 }
