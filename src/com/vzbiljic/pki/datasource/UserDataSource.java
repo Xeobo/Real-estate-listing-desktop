@@ -52,13 +52,13 @@ public class UserDataSource extends AbstractDataSource<User> {
         return list.indexOf(user);
     }
 
-    public boolean checkIfUserExists(String user) {
+    public User findUser(String user) {
         for(int i=0; i< UserDataSource.getInstance().size();i++){
             User u = UserDataSource.getInstance().get(i);
             if(u.getUsername().equals(user)) {
-                return true;
+                return u;
             }
         }
-        return false;
+        return null;
     }
 }

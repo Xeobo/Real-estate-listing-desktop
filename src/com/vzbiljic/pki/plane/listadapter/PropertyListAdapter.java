@@ -37,10 +37,8 @@ public class PropertyListAdapter implements IListAdapter{
                 currentPanel = rightPanel;
             }
             currentPanel.add(new PropertiesListJPanel(
-                    PropertyDataSource.getInstance().get(i).getImage(), 
-                    PropertyDataSource.getInstance().get(i).getPrice(), 
-                    PropertyDataSource.getInstance().get(i).getName())
-            );
+                    PropertyDataSource.getInstance().get(i)
+            ));
         }
         
         listPanel.add(leftPanel);

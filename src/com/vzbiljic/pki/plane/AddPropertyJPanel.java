@@ -5,22 +5,29 @@
  */
 package com.vzbiljic.pki.plane;
 
+import com.vzbiljic.pki.frame.MainJFrame;
+import com.vzbiljic.pki.plane.listadapter.AgentListAdapter;
+import com.vzbiljic.pki.util.Util;
+import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import org.jcp.xml.dsig.internal.dom.Utils;
 
 /**
  *
  * @author vzbiljic
  */
 public class AddPropertyJPanel extends javax.swing.JPanel {
+   
 
     /**
      * Creates new form AddPropertyJPanel
      */
-    public AddPropertyJPanel() {
+    public AddPropertyJPanel(MainJFrame frame) {
         initComponents();
         onAfterInit();
+        this.frame = frame;
     }
 
     /**
@@ -32,6 +39,7 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -139,6 +147,7 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
 
         jLabel23.setText("Tip najama:");
 
+        buttonGroup1.add(loan);
         loan.setSelected(true);
         loan.setText("Prodaja");
         loan.addActionListener(new java.awt.event.ActionListener() {
@@ -147,6 +156,7 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(sell);
         sell.setText("Iznajmljivanje");
         sell.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,7 +235,9 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
                                     .addComponent(booked)
                                     .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(sell)
-                            .addComponent(jButton1)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(8, 8, 8))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel20)
@@ -284,9 +296,9 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel23)
                     .addComponent(loan)
                     .addComponent(sell))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(52, 52, 52))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -297,9 +309,7 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -347,23 +357,33 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
 
         //place
         String input = place.getText();
-        if(checkIfNull(input, "mesto")){
+        if(Util.getInstance().checkIfNull(input, "mesto")){
             return;
         }
 
         //address
         input = address.getText();
-        if(checkIfNull(input, "adresa")){
+        if(Util.getInstance().checkIfNull(input, "adresa")){
             return;
         }
+        
+        frame.setMainPanel(new AddToAgentJPlane());
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void onAfterInit() {
+       area.setModel(new SpinnerNumberModel(0, 0, 100000, 1));
+       price.setModel(new SpinnerNumberModel(0, 0, 100000000, 1));
+       addressNumber.setModel(new SpinnerNumberModel(0, 0, 1000, 1));
+   }
+    
+    private final MainJFrame frame;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField address;
     private javax.swing.JSpinner addressNumber;
     private javax.swing.JSpinner area;
     private javax.swing.JCheckBox booked;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> heat;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
@@ -389,40 +409,6 @@ public class AddPropertyJPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox therass;
     private javax.swing.JComboBox<String> type;
     // End of variables declaration//GEN-END:variables
-   
-    private boolean checkIfNull(String input,String name){
-       if(input == null || input.equals("")){
-
-           alert("Neispravno uneto polje: " + name + "!");
-
-           return true;
-       }
-       return false;
-   }
-    
-   private void alert(String alertMessage) {
-       JOptionPane optionPane = new JOptionPane(alertMessage,JOptionPane.ERROR_MESSAGE);
-       JDialog dialog = optionPane.createDialog("Greska!");
-       dialog.setAlwaysOnTop(true);
-       dialog.setVisible(true);
-   }
-
-   private boolean checkIfNumber(String input,String name){
-       if(input == null || input.equals("")){
-
-           alert("Dozvoljen je samo celobrojan ubnos" + name + "!");
-
-           return true;
-       }
-
-       return false;
-   }
-
-   private void onAfterInit() {
-       area.setModel(new SpinnerNumberModel(0, 0, 100000, 1));
-       price.setModel(new SpinnerNumberModel(0, 0, 100000000, 1));
-       addressNumber.setModel(new SpinnerNumberModel(0, 0, 1000, 1));
-   }
 
 
 }

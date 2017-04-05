@@ -22,24 +22,19 @@ public class ViewedByUserJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewedByUserJPanel
      */
-    public ViewedByUserJPanel(String name, String telephone) {
+    public ViewedByUserJPanel(boolean isAgent) {
         initComponents();
         initUserList();
         listVIewHolder.setVisible(false);
         userInfoPanel.setVisible(false);
-        isAgent = false;
-        onAffterInit(name,telephone);
+        
+        agencyLabel.setVisible(isAgent);
+        agency.setVisible(isAgent);
+        this.isAgent = isAgent;
+        
     }
     
-    public ViewedByUserJPanel(String name, String telephone, String agency) {
-        initComponents();
-        initUserList();
-        listVIewHolder.setVisible(false);
-        userInfoPanel.setVisible(false);
-        isAgent = true;
-        onAffterInit(name,telephone, agency);
-    }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

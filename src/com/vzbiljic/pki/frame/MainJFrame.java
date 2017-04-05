@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vzbiljic.pki;
+package com.vzbiljic.pki.frame;
 
 import com.vzbiljic.pki.plane.AddPropertyJPanel;
 import com.vzbiljic.pki.plane.AddToAgentJPlane;
@@ -33,6 +33,29 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
         initComponents();
         onAfterInit();
+        instance = this;
+    }
+    
+    public static MainJFrame getInstance(){
+        return instance;
+    }
+    
+    public void setListViewContentWithAdapter(IListAdapter listAdapter) {      
+        ListJPanel panel =  new ListJPanel(listAdapter);
+        setMainPanel(panel);
+        
+    }
+    
+      
+    
+    public void setMainPanel(JPanel panel){
+        mainPanel.removeAll();
+        mainPanel.repaint();
+        mainPanel.revalidate();
+        
+        mainPanel.add(panel);
+        mainPanel.repaint();
+        mainPanel.revalidate();
     }
 
     /**
@@ -44,7 +67,6 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         containerPanel = new javax.swing.JPanel();
@@ -67,9 +89,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         mainPlain = new javax.swing.JScrollPane();
         mainPanel = new javax.swing.JPanel();
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/vzbiljic/pki/homeicon.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
 
         jLabel22.setText("Status:");
 
@@ -312,7 +331,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/vzbiljic/pki/homeicon.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/homeicon.png"))); // NOI18N
+        jLabel4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         mainPanel.setLayout(new java.awt.CardLayout());
         mainPlain.setViewportView(mainPanel);
@@ -343,10 +363,13 @@ public class MainJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(containerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(containerPanelLayout.createSequentialGroup()
+                        .addComponent(mainPlain, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(34, Short.MAX_VALUE))
+                    .addGroup(containerPanelLayout.createSequentialGroup()
                         .addComponent(addProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ListAgents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(assignPropertyToAgent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(soledProperty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,10 +379,8 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(seenByClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(logOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel4))
-                    .addComponent(mainPlain, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -381,14 +402,14 @@ public class MainJFrame extends javax.swing.JFrame {
     private void addPropertyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPropertyMouseClicked
         // TODO add your handling code here:
         
-        setMainPanel(new AddPropertyJPanel());
+        setMainPanel(new AddPropertyJPanel(this));
+        
+        
     }//GEN-LAST:event_addPropertyMouseClicked
 
    
     
     private void logOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutMouseClicked
-        
-        
         
         new LoginJFrame().setVisible(true);
         
@@ -412,11 +433,11 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_soledPropertyMouseClicked
 
     private void seenByClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seenByClientMouseClicked
-        setMainPanel(new ViewedByUserJPanel("Pera", "0621234567"));
+        setMainPanel(new ViewedByUserJPanel(false));
     }//GEN-LAST:event_seenByClientMouseClicked
 
     private void shownByAgentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_shownByAgentMouseClicked
-        setMainPanel(new ViewedByUserJPanel("Pera", "0621234567","BGStan"));
+        setMainPanel(new ViewedByUserJPanel(true));
     }//GEN-LAST:event_shownByAgentMouseClicked
 
     /**
@@ -454,7 +475,16 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    private void onAfterInit() {
+        setListViewContentWithAdapter(new AgentListAdapter());
+        
+        setResizable(false);
+        setLocationRelativeTo(null);
+    }
+    
+    private static MainJFrame instance;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ListAgents;
     private javax.swing.JPanel addProperty;
@@ -463,7 +493,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel containerPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -481,30 +510,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel soledProperty;
     // End of variables declaration//GEN-END:variables
 
-    private void alert(String alertMessage) {
-        JOptionPane optionPane = new JOptionPane(alertMessage,JOptionPane.ERROR_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Greska!");
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
-    }
 
-    private void onAfterInit() {
-        setListViewContentWithAdapter(new AgentListAdapter());
-        
-    }
 
-    private void setListViewContentWithAdapter(IListAdapter listAdapter) {      
-        setMainPanel(new ListJPanel(listAdapter));
-        
-    }
     
-    private void setMainPanel(JPanel panel){
-        mainPanel.removeAll();
-        mainPanel.repaint();
-        mainPanel.revalidate();
-        
-        mainPanel.add(panel);
-        mainPanel.repaint();
-        mainPanel.revalidate();
-    }
 }

@@ -5,6 +5,10 @@
  */
 package com.vzbiljic.pki.plane.model;
 
+import com.vzbiljic.pki.bean.Property;
+import com.vzbiljic.pki.datasource.PropertyDataSource;
+import com.vzbiljic.pki.frame.MainJFrame;
+import com.vzbiljic.pki.plane.listadapter.PropertyListAdapter;
 import com.vzbiljic.pki.util.Util;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,6 +18,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.text.html.ListView;
+import jdk.internal.util.xml.PropertiesDefaultHandler;
 import org.jcp.xml.dsig.internal.dom.Utils;
 
 /**
@@ -22,12 +28,15 @@ import org.jcp.xml.dsig.internal.dom.Utils;
  */
 public class PropertiesListJPanel extends javax.swing.JPanel {
 
+    
+
     /**
      * Creates new form PropertiesListJPanel
      */
-    public PropertiesListJPanel(String imgPath, String price, String address) {
+    public PropertiesListJPanel(Property property) {
         initComponents();
-        onAfterInit(imgPath,price,address);
+        this.property = property;
+        onAfterInit(property.getImage(),property.getPrice(),property.getName());
     }
 
     /**
@@ -99,10 +108,13 @@ public class PropertiesListJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        // TODO add your handling code here:
+        PropertyDataSource.getInstance().remove(property);
+        
+        MainJFrame.getInstance().setListViewContentWithAdapter(new PropertyListAdapter());
     }//GEN-LAST:event_deleteActionPerformed
 
 
+    private final Property property;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address;
     private javax.swing.JButton delete;
@@ -114,7 +126,7 @@ public class PropertiesListJPanel extends javax.swing.JPanel {
         try {
             Image icon = ImageIO.read(getClass().getResource(imgPath));
             
-            icon = Util.scaleImage(icon,121,80);
+            icon = Util.getInstance().scaleImage(icon,121,80);
             
             this.image.setIcon(new ImageIcon(icon));
             

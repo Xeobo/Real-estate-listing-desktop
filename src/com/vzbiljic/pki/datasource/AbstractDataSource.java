@@ -31,6 +31,10 @@ public abstract class AbstractDataSource<T extends IBean>{
     public T remove(int index){
         return list.remove(index);
     }
+    
+    public boolean remove(T t){
+        return list.remove(t);
+    }
 
     public int size(){
         return list.size();

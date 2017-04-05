@@ -29,6 +29,31 @@ public class ListJPanel extends javax.swing.JPanel {
         initComponents();
         onAfterInit();
     }
+    
+    public void repaintList(){
+        jPanel1.removeAll();
+        jPanel1.repaint();
+        jPanel1.revalidate();
+        
+        fillList();
+    }
+    
+    private void onAfterInit() {
+        
+        if(null == adapter){
+            throw new RuntimeException("ListView adapter in null! Could not initialize main panel!");
+        }
+        jPanel1.setLayout(new BoxLayout(jPanel1,BoxLayout.Y_AXIS));
+        
+        fillList();
+    }
+    
+    private void fillList(){
+        adapter.fillList(jPanel1);
+        
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,17 +86,7 @@ public class ListJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 
-    private void onAfterInit() {
-        
-        if(null == adapter){
-            throw new RuntimeException("ListView adapter in null! Could not initialize main panel!");
-        }
-        jPanel1.setLayout(new BoxLayout(jPanel1,BoxLayout.Y_AXIS));
-        adapter.fillList(jPanel1);
-        
-        jPanel1.repaint();
-        jPanel1.revalidate();
-    }
+    
     
     private IListAdapter adapter;
     

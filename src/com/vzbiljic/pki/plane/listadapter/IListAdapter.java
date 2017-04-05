@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public interface IListAdapter {
     /**
      * @param listPanel - Panel in form of list. Client should only add panels to
-     * initialize panel. Client <b>shouldn't</b> call repaint, neither revalidate after adding!
+     * initialize panel. Client <b>shouldn't</b> call repaint, neither <b>revalidate</b> after adding!
      *  
     */
     void fillList(JPanel listPanel);

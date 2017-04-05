@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.vzbiljic.pki;
+package com.vzbiljic.pki.frame;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -19,6 +19,9 @@ public class LoginJFrame extends javax.swing.JFrame {
      */
     public LoginJFrame() {
         initComponents();
+        
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -43,7 +46,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 217, 217));
         jPanel1.setForeground(java.awt.Color.black);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/vzbiljic/pki/homeicon.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/homeicon.png"))); // NOI18N
 
         jLabel11.setText("Korisnicko ime:");
 
@@ -105,7 +108,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel13))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -29,6 +29,7 @@ public class R {
         public static String moler = "/drawable/moler.jpg";
         public static String omlad = "/drawable/omlad.jpg";
         public static String vojvodes = "/drawable/vojvodes.jpg";
+        public static String home_icon = "/drawable/homeicon.png";
     }
         
     }

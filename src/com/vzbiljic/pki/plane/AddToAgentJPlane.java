@@ -7,7 +7,9 @@ package com.vzbiljic.pki.plane;
 
 import com.vzbiljic.pki.datasource.PropertyDataSource;
 import com.vzbiljic.pki.datasource.UserDataSource;
+import com.vzbiljic.pki.frame.MainJFrame;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 
 /**
  *
@@ -82,14 +84,17 @@ public class AddToAgentJPlane extends javax.swing.JPanel {
                     .addComponent(propertyCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addComponent(jButton1)
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addContainerGap(199, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        MainJFrame.getInstance().setMainPanel(new ViewedByUserJPanel(true));
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private void onAffterInit() {
+       agentCombo.setModel(new DefaultComboBoxModel<String>(UserDataSource.getInstance().getDescription()));
+       propertyCombo.setModel(new DefaultComboBoxModel<String>(PropertyDataSource.getInstance().getDescription()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> agentCombo;
@@ -99,8 +104,5 @@ public class AddToAgentJPlane extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> propertyCombo;
     // End of variables declaration//GEN-END:variables
 
-    private void onAffterInit() {
-       agentCombo.setModel(new DefaultComboBoxModel<String>(UserDataSource.getInstance().getDescription()));
-       propertyCombo.setModel(new DefaultComboBoxModel<String>(PropertyDataSource.getInstance().getDescription()));
-    }
+
 }

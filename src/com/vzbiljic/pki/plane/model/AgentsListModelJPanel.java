@@ -5,7 +5,16 @@
  */
 package com.vzbiljic.pki.plane.model;
 
+import com.vzbiljic.pki.bean.User;
+import com.vzbiljic.pki.datasource.UserDataSource;
+import com.vzbiljic.pki.frame.MainJFrame;
+import com.vzbiljic.pki.plane.EditAgentJPlane;
+import com.vzbiljic.pki.plane.listadapter.AgentListAdapter;
+import com.vzbiljic.pki.plane.listadapter.IListAdapter;
 import com.vzbiljic.pki.util.R;
+import com.vzbiljic.pki.util.Util;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -50,7 +59,13 @@ public class AgentsListModelJPanel extends javax.swing.JPanel {
 
         delete.setBackground(com.vzbiljic.pki.util.R.color.RED);
         delete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        delete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         delete.setMinimumSize(new java.awt.Dimension(44, 18));
+        delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteMouseClicked(evt);
+            }
+        });
 
         jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("Obrisi");
@@ -74,6 +89,12 @@ public class AgentsListModelJPanel extends javax.swing.JPanel {
 
         change.setBackground(R.color.RED);
         change.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        change.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        change.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                changeMouseClicked(evt);
+            }
+        });
 
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Izmeni");
@@ -167,6 +188,35 @@ public class AgentsListModelJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void changeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeMouseClicked
+        User u = UserDataSource.getInstance().findUser(agent.getText());
+        
+        MainJFrame.getInstance().setMainPanel(new EditAgentJPlane(u));
+    }//GEN-LAST:event_changeMouseClicked
+
+    private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
+        User u = UserDataSource.getInstance().findUser(agent.getText());
+        UserDataSource.getInstance().remove(u);
+        
+        Util.getInstance().askYesOrNo("Da li ste sigurni da zelite da obrisete agenta: " + agent.getText() + " ?", new Util.IOnOptionClicked() {
+            @Override
+            public void onPositiveOptionClicked() {
+                MainJFrame.getInstance().setListViewContentWithAdapter(new AgentListAdapter());
+            }
+
+            @Override
+            public void onNegativeOptionClicked() {
+            }
+        });
+        
+        
+    }//GEN-LAST:event_deleteMouseClicked
+    
+    private void onAfterInit(String agentName, String numberString, String agencyName) {
+        agent.setText(agentName);
+        number.setText(numberString);
+        agency.setText(agencyName);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel agency;
@@ -182,9 +232,5 @@ public class AgentsListModelJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel number;
     // End of variables declaration//GEN-END:variables
 
-    private void onAfterInit(String agentName, String numberString, String agencyName) {
-        agent.setText(agentName);
-        number.setText(numberString);
-        agency.setText(agencyName);
-    }
+    
 }
